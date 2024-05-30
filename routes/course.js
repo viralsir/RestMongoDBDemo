@@ -107,12 +107,16 @@ router.get('/', async function (req, res, next) {
 });
 
 router.post('/', async function (req, res, next) {
+
   let output = await insertQuery(req.body);
   console.log(output);
+
   if (output == 0) {
-    res.send('record inserted successfully.');
+    res.send('0');
+    //res.json({msg:'record inserted successfully.'});
   } else {
-    res.send('record not inserted ');
+    res.send('1');
+    //res.json({msg:'record not inserted '});
   }
 
 })
