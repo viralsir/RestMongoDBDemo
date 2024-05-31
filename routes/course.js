@@ -1,8 +1,12 @@
 var express = require('express');
 var router = express.Router();
-const {MongoClient} = require('mongodb');
-let url = 'mongodb://localhost:27017';
+var {insertQuery,update,removedata,finde} = require('../DBMongo/DBDemo')
+const database_name="Demo"
+const collection_name='Course'
 
+// const {MongoClient} = require('mongodb');
+// let url = 'mongodb://localhost:27017';
+/*
 async function insertQuery(allemp){
 
   let mongoClient
@@ -90,12 +94,13 @@ async function finde() {
   }finally {
     await mongodb.close();
   }
-}
+}*/
 
 /* GET users listing. */
 router.get('/', async function (req, res, next) {
 
-     let output=await finde();
+
+     let output=await finde(database_name,collection_name);
      if(output!=1) {//res.send("testing");
        res.json(output);
      }
@@ -108,7 +113,7 @@ router.get('/', async function (req, res, next) {
 
 router.post('/', async function (req, res, next) {
 
-  let output = await insertQuery(req.body);
+  let output = await insertQuery(database_name, collection_name,req.body);
   console.log(output);
 
   if (output == 0) {
@@ -122,7 +127,7 @@ router.post('/', async function (req, res, next) {
 })
 
 router.put('/', async function (req, res, next) {
-  let output = await update(req.body.id,req.body);
+  let output = await update(database_name,collection_name,req.body.id,req.body);
   console.log(output);
   if (output === 0) {
     res.send('record updated successfully.');
@@ -133,7 +138,7 @@ router.put('/', async function (req, res, next) {
 })
 
 router.delete("/", async function (req, res, next) {
-     let output = await removedata(req.body.id);
+     let output = await removedata(database_name,collection_name,req.body.id);
      console.log(output);
      if (output===0)
      {

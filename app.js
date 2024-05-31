@@ -8,6 +8,7 @@ var cors=require('cors')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var courseRouter =require('./routes/course');
+var studentRouter = require('./routes/student');
 
 var app = express();
 
@@ -27,5 +28,5 @@ app.options('*',cors())
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/course', courseRouter);
-
+app.use('/student',studentRouter)
 module.exports = app;
